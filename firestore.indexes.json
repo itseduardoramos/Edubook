@@ -1,0 +1,83 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "mensajes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "amigoId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "mensajeId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mensajes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "amigoId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "mensajeId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mensajes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "amigoId",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "mensajeId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mensajes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "amigoId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "mensajes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "mensajeId",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
