@@ -51,8 +51,8 @@ export default function Comentarios(props) {
   return (
     <div className="mt-3">
         {
-            comentarios.map(item =>
-                <div className="card mb-3 ms-3 me-3 border border-success bg-dark text-light">
+            comentarios.map((item, index) =>
+                <div className="card mb-3 ms-3 me-3 border border-success bg-dark text-light" key={index}>
                     <div className="card-header border-bottom border-success">
                      <b className='float-start'>{item.nombre}</b>
                      <div className="float-end">{item.fecha}</div>

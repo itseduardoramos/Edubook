@@ -1,7 +1,7 @@
 import React from "react";
 import { auth, provider, db } from '../firebase';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { setDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
 
 export const ChatContext = React.createContext()
 
@@ -16,13 +16,9 @@ const ChatProvider = (props) => {
     }, [])
 
     const detectarUsuario = (uid, nombre, foto, email, estado) => {
-
-
         if (localStorage.getItem('usuario')) {
             const usuarioInfo = JSON.parse(localStorage.getItem('usuario'));
-
             setUsuario({uid: usuarioInfo.uid, nombre: usuarioInfo.nombre, fotoPerfil: usuarioInfo.fotoPerfil, email: usuarioInfo.email, estado: usuarioInfo.estado});
-
         }
         else{
             setUsuario({uid: null, nombre: null, fotoPerfil: null, email: null, estado: false})

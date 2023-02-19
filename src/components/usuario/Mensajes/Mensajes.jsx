@@ -221,14 +221,14 @@ const Mensajes = () => {
                 mensajes.length !== 0 ? (
                   mensajes.map((item, index) => (
                       usuario.uid === item.uid ? (
-                          <div className='d-flex justify-content-end mb-2'>
-                            <span className='btn btn-primary' key={index}>
+                          <div className='d-flex justify-content-end mb-2' key={index}>
+                            <span className='btn btn-primary'>
                              {item.mensaje}
                             </span>
                           </div>
                     ) : (
-                        <div className='d-flex justify-content-start mb-2'>
-                            <span className='btn btn-secondary' key={index}>
+                        <div className='d-flex justify-content-start mb-2' key={index}>
+                            <span className='btn btn-secondary'>
                               {item.mensaje}
                             </span>
                           </div>
