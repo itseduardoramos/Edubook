@@ -15,6 +15,6 @@ Once you log in, you get an id, which is going to help you keep using Edubook. I
 These are Edubook's main funcionalities, I'd like to add some new features in the future such as data saving, see other people's profiles and the possibility of adding friends. But for now, I'll be in change of fixing bugs and optimizing the code.
 
 UPDATES:
-- 02/19/23: I just optimized part of the profile, and home section by adding a new component "Publicaciones", as well as part of the database queriy code, now it reads the information faster.
+- 02/19/23: I just optimized part of the profile, and home section by adding a new component "Publicaciones", as well as part of the database query code, now it reads the information faster.
 
 -Eduardo Ramos
