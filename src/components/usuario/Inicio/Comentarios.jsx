@@ -29,7 +29,7 @@ export default function Comentarios(props) {
     }
 
     const enviarComentario = async(e) => {
-        e.preventDefault();
+        e.preventDefault();git 
 
         if (!comentario) {
             return;
