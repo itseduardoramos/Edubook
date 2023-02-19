@@ -37,87 +37,87 @@ const Publicaciones = (props) => {
     );
   }
     
-      const obtenerPublicacionesCompletas = async(listado) => {
-        if (listado) {
-          if (props.uid) {
-            for (let i = 0; i < listado.length; i++) {
-              listado[i].fotoPerfil = usuario.fotoPerfil;
-              listado[i].nombre = usuario.nombre
-            }
+  const obtenerPublicacionesCompletas = async(listado) => {
+    if (listado) {
+      if (props.uid) {
+        for (let i = 0; i < listado.length; i++) {
+          listado[i].fotoPerfil = usuario.fotoPerfil;
+          listado[i].nombre = usuario.nombre
+        }
 
-          }else{
-            for (let i = 0; i < listado.length; i++) {
-              try {
-                const res = await getDoc(doc(db, 'usuarios', listado[i].uid));
-                listado[i].fotoPerfil = res.data().fotoPerfil;
-                listado[i].nombre = res.data().nombre;
-  
-              } catch (error) {
-                console.log(error)
-              }
-            }
+      }else{
+        for (let i = 0; i < listado.length; i++) {
+          try {
+            const res = await getDoc(doc(db, 'usuarios', listado[i].uid));
+            listado[i].fotoPerfil = res.data().fotoPerfil;
+            listado[i].nombre = res.data().nombre;
+    
+          } catch (error) {
+            console.log(error)
           }
-    
-          setPublicaciones(listado);
         }
       }
+      
+      setPublicaciones(listado);
+    }
+  }
 
-    const darLike = async(e, publicacionId, foto, likes) => {
-        e.preventDefault();
+  const darLike = async(e, publicacionId, foto, likes) => {
+    e.preventDefault();
     
-        if (!foto) { foto = null }
+    if (!foto) { foto = null }
     
-        const q = query(collection(db,'usuario_likes'), where('publicacionId', '==', publicacionId), where('uid', '==', usuario.uid));
-        const res = await getDocs(q);
-        const numLikes = res.docs.map(item => ({id: item.id}));
+    const q = query(collection(db,'usuario_likes'), where('publicacionId', '==', publicacionId), where('uid', '==', usuario.uid));
+    const res = await getDocs(q);
+    const numLikes = res.docs.map(item => ({id: item.id}));
     
-        //Si viene vacio es porque no ha dado like y lo agrego
-        if (numLikes.length == 0) {
-          await addDoc(collection(db, 'usuario_likes'), {
-            publicacionId: publicacionId,
-            uid: usuario.uid,
-          });
+    //Si viene vacio es porque no ha dado like y lo agrego
+    if (numLikes.length == 0) {
+      await addDoc(collection(db, 'usuario_likes'), {
+        publicacionId: publicacionId,
+        uid: usuario.uid,
+      });
 
-          await updateDoc(doc(db, 'publicaciones', publicacionId), {likes: likes+1});
+      await updateDoc(doc(db, 'publicaciones', publicacionId), {likes: likes+1});
 
-        }else{
-          await deleteDoc(doc(db, 'usuario_likes', numLikes[0].id));
-          await updateDoc(doc(db, 'publicaciones', publicacionId), {likes: likes-1})
-        }
-      }
+    }else{
+      await deleteDoc(doc(db, 'usuario_likes', numLikes[0].id));
+      await updateDoc(doc(db, 'publicaciones', publicacionId), {likes: likes-1})
+    }
+  }
     
-      const obtenerComentarios = async(e) => {
-        e.preventDefault();
+  const obtenerComentarios = async(e) => {
+    e.preventDefault();
     
-        if (comentarios == false) {
-          setComentarios(true);
-        }else{
-          setComentarios(false);
-        }
-      }
+    if (comentarios == false) {
+      setComentarios(true);
+    }else{
+      setComentarios(false);
+    }
+  }
     
-      const reportarPublicacion = async(e, publicacionId) => {
-        e.preventDefault();
+  const reportarPublicacion = async(e, publicacionId) => {
+    e.preventDefault();
     
-        const q = query(collection(db, 'reportes'), where('uid', '==', usuario.uid), where('publicacionId', '==', publicacionId))
-        const res = await getDocs(q);
-        const reporteUsuario = res.docs.map(item => ({id: item.id, ...item.data()}));
+    const q = query(collection(db, 'reportes'), where('uid', '==', usuario.uid), where('publicacionId', '==', publicacionId))
+    const res = await getDocs(q);
+    const reporteUsuario = res.docs.map(item => ({id: item.id, ...item.data()}));
     
-        if (reporteUsuario.length == 1) { return; }
-        else{
-          await addDoc(collection(db, 'reportes'), { uid: usuario.uid, publicacionId: publicacionId });
-        }
+    if (reporteUsuario.length == 1) { return; }
+    else{
+      await addDoc(collection(db, 'reportes'), { uid: usuario.uid, publicacionId: publicacionId });
+    }
     
-        const q2 = query(collection(db, 'reportes'), where('publicacionId', '==', publicacionId))
-        const res2 = await getDocs(q2);
-        const listaReportes = res2.docs.map(item => ({id: item.id, ...item.data()}));
+    const q2 = query(collection(db, 'reportes'), where('publicacionId', '==', publicacionId))
+    const res2 = await getDocs(q2);
+    const listaReportes = res2.docs.map(item => ({id: item.id, ...item.data()}));
     
-        //Si la publicacion ya se reporto 5 veces entonces la borro
-        if (listaReportes.length == 5) {
-          await deleteDoc(doc(db, 'publicaciones', publicacionId));
+    //Si la publicacion ya se reporto 5 veces entonces la borro
+    if (listaReportes.length == 5) {
+      await deleteDoc(doc(db, 'publicaciones', publicacionId));
     
-        }
-      }
+    }
+  }
 
   return (
     <div className="col">
